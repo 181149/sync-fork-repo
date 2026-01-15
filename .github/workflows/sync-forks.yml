@@ -1,0 +1,24 @@
+name: Sync Forks
+on:
+  schedule:
+    - cron: '0 1 * * 1'  # Sync every Monday at 1 AM UTC
+  workflow_dispatch:
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Sync each fork
+        run: |
+          # List your forked repos in the format: owner/repo
+          repos=(
+            "181149/spring-petclinic-graphql"
+            "181149/freeCodeCamp"
+            "181149/30-seconds-of-interviews"
+          )
+          for repo in "${repos[@]}"; do
+            echo "Syncing $repo..."
+            gh repo sync "$repo" || echo "Failed to sync $repo"
+          done
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
