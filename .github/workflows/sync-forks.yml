@@ -21,4 +21,4 @@ jobs:
             gh repo sync "$repo" || echo "Failed to sync $repo"
           done
         env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.TOKEN }}
